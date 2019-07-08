@@ -1,0 +1,35 @@
+{
+  "name": "mi9-subscribe",
+  "version": "1.0.0",
+  "description": "A small react application for saving user subscriptions",
+  "main": "index.js",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "html-webpack-plugin": "^3.2.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/register": "^7.4.4",
+    "babel-loader": "^8.0.6",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "dev": "npm ci && npm run dev-server",
+    "dev-server": "webpack-dev-server --port 3200 --inline --hot"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/Loki_2000/mi9-subscribe.git"
+  },
+  "author": "Rody Kirwan",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/Loki_2000/mi9-subscribe#readme"
+}
