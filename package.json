@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "browserslist": "^4.6.4",
     "html-webpack-plugin": "^3.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
@@ -18,6 +19,7 @@
     "@babel/preset-env": "^7.5.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.4",
+    "autoprefixer": "^9.6.1",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.0.0",
     "mini-css-extract-plugin": "^0.7.0",

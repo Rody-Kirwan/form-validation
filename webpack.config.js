@@ -1,4 +1,5 @@
 const path = require('path')
+const autoprefixer = require('autoprefixer')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
@@ -29,6 +30,16 @@ module.exports = (env, argv) => ({
               modules: true,
               url: true,
               import: true
+            }
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: 'postcss',
+              plugins: [
+                // See why this isn't working
+                autoprefixer(),
+              ]
             }
           },
           {
