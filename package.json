@@ -20,8 +20,11 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.4.4",
     "autoprefixer": "^9.6.1",
+    "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.0.0",
+    "eslint-plugin-react": "^7.14.2",
+    "eslint_d": "^8.0.0",
     "mini-css-extract-plugin": "^0.7.0",
     "module-alias": "^2.2.0",
     "node-sass": "^4.12.0",
@@ -32,7 +35,8 @@
   },
   "scripts": {
     "dev": "npm ci && npm run dev-server",
-    "dev-server": "webpack-dev-server --port 3200 --inline --hot"
+    "dev-server": "webpack-dev-server --port 3200 --inline --hot",
+    "lint": "eslint_d src  --ext js"
   },
   "repository": {
     "type": "git",
