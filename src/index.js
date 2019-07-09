@@ -1,15 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-class App extends  React.Component {
-  render() {
-    return(
-      <div className="app-container">
-        <h1>Appy Days</h1>
-      </div>
-    )
-  }
-}
+import App from './components/app/app.js'
+
+import 'styles/_base.scss'
 
 ReactDOM.render(
   <App />,
