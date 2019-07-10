@@ -70,7 +70,9 @@ module.exports = (env, argv) => ({
   resolve: {
     alias: {
       styles: path.resolve(__dirname, 'src/styles/'),
-      components: path.resolve(__dirname, 'src/components/')
+      components: path.resolve(__dirname, 'src/components/'),
+      js: path.resolve(__dirname, 'src/js/'),
+      widgets: path.resolve(__dirname, 'src/widgets/')
     },
     extensions: ['.js', '.jsx', '.scss'],
   },
