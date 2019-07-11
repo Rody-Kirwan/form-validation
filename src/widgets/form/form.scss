@@ -11,3 +11,16 @@
   align-items: flex-end;
 }
 
+.form-row {
+  display: flex;
+  justify-content: space-between;
+
+  > div {
+    margin-right: 40px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+

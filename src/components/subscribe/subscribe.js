@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { FormInput, Form, Button } from 'widgets';
+import { FormInput, FormRow, Form, Button } from 'widgets';
 import { ValidateStr } from 'js/validation';
 
 import styles from './subscribe.scss';
@@ -28,21 +28,23 @@ export default class Subscribe extends Component {
     return(
       <div className={styles['subscribe-wrapper']}>
         <Form className="subscription" onSubmit={this.handleSubmit} validate={'validateSubscription'}>
-          <FormInput
-            onChange={this.handleChange}
-            validate={ValidateStr}
-            validationTypes={['required', 'email']}
-            value={this.state.email}
-            name="email"
-            type="email"
-          />
-          <FormInput
-            onChange={this.handleChange}
-            validate={ValidateStr}
-            validationTypes={['required', 'maxLength']}
-            value={this.state.firstName}
-            name="firstName"
-          />
+          <FormRow>
+            <FormInput
+              onChange={this.handleChange}
+              validate={ValidateStr}
+              validationTypes={['required', 'email']}
+              value={this.state.email}
+              name="email"
+              type="email"
+            />
+            <FormInput
+              onChange={this.handleChange}
+              validate={ValidateStr}
+              validationTypes={['required', 'maxLength']}
+              value={this.state.firstName}
+              name="firstName"
+            />
+          </FormRow>
           <Button className="default" type="submit" disabled={this.state.isValid}>
             SUBMIT
           </Button>
