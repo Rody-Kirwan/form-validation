@@ -5,8 +5,8 @@ import styles from './form.scss';
 
 const Form = ({ children, ...props }) => {
   return (
-    <div className={styles[props.className]}>
-      <form {...props}>
+    <div className={styles['form-container']}>
+      <form {...props} className={styles[props.className]}>
         {children}
       </form>
     </div>

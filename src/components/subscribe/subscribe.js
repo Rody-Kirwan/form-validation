@@ -27,7 +27,6 @@ export default class Subscribe extends Component {
   render() {
     return(
       <div className={styles['subscribe-wrapper']}>
-        <h1>Subscribe</h1>
         <Form className="subscription" onSubmit={this.handleSubmit} validate={'validateSubscription'}>
           <FormInput
             onChange={this.handleChange}
@@ -35,6 +34,7 @@ export default class Subscribe extends Component {
             validationTypes={['required', 'email']}
             value={this.state.email}
             name="email"
+            type="email"
           />
           <FormInput
             onChange={this.handleChange}

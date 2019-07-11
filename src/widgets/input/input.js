@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import styles from './input.scss';
+
 const Input = (props = {}) => {
   return (
-    <input {...props} onChange={props.onChange} />
+    <input {...props} onChange={props.onChange} className={styles.default} />
   );
 };
 

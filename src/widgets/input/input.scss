@@ -1,0 +1,13 @@
+.default {
+  min-height: 35px;
+  min-width: 300px;
+  background: #fff;
+  border: 1px solid lightgray;
+  padding: 0 10px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+}
+
+.default[type="email"] {
+  text-transform: lowercase;
+}

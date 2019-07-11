@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Input } from 'widgets';
 
+import ValidIcon from 'img/check.png';
 import styles from './form-input.scss';
 
 const FormInput = ({ validate, validationTypes, ...props}) => {
   const [ state, setStatus ] = useState({
-    status: 'valid',
+    status: '',
     message: ''
   });
 
@@ -18,15 +19,21 @@ const FormInput = ({ validate, validationTypes, ...props}) => {
       .then((newState) => {
         setStatus(newState);
       })
-      .finally(() => props.onChange({
+      .then(() => props.onChange({
         name, value, status 
       }));
   };
 
+  // TODO: See why this renders 3 times (should be 2)
+  const showIcon = state.status === 'valid';
+
   return (
-    <div className={styles[state.status]}>
+    <div className={`${styles[state.status]} ${styles['form-input-container']}`}>
       <Input {...props} onChange={handleChange} />
-      <span>{state.message}</span>
+      <span className={styles.message}>{state.message}</span>
+      {
+        showIcon && <img src={ValidIcon} className={styles.icon} />
+      }
     </div>
   );
 };

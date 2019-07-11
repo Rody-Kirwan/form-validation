@@ -1,9 +1,27 @@
-.valid {
-  background: green;
-  padding: 10px;
+@import 'styles/_variables';
+
+.form-input-container {
+  position: relative;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.icon {
+  position: absolute;
+  right: 8px;
+  top: 7px;
 }
 
 .invalid {
-  background: red;
-  padding: 10px;
+  border-bottom: 2px solid red;
+}
+
+.message {
+  position: absolute;
+  color: red;
+  bottom: -20px;
+  left: 0;
+  font-family: sans-serif;
+  font-size: 12px;
 }

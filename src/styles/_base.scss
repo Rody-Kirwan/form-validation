@@ -17,3 +17,7 @@ h1 {
 p {
   font-family: sans-serif;
 }
+
+input:focus, button:focus {
+    outline: none;
+}
