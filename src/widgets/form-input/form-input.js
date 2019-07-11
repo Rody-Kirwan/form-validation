@@ -6,7 +6,7 @@ import { Input } from 'widgets';
 import ValidIcon from 'img/check.png';
 import styles from './form-input.scss';
 
-const FormInput = ({ validate, validationTypes, ...props}) => {
+const FormInput = ({ validate, validationTypes, label, ...props}) => {
   const [ state, setStatus ] = useState({
     status: '',
     message: ''
@@ -26,9 +26,11 @@ const FormInput = ({ validate, validationTypes, ...props}) => {
 
   // TODO: See why this renders 3 times (should be 2)
   const showIcon = state.status === 'valid';
+  const showLabel = !!label;
 
   return (
     <div className={`${styles[state.status]} ${styles['form-input-container']}`}>
+      { showLabel && <label>{label}</label> }
       <Input {...props} onChange={handleChange} />
       <span className={styles.message}>{state.message}</span>
       {
@@ -41,7 +43,8 @@ const FormInput = ({ validate, validationTypes, ...props}) => {
 FormInput.propTypes = {
   onChange: PropTypes.func.isRequired,
   validate: PropTypes.func.isRequired,
-  validationTypes: PropTypes.array
+  validationTypes: PropTypes.array,
+  label: PropTypes.string
 };
 
 export default FormInput;

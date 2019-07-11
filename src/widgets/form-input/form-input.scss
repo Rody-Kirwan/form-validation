@@ -2,9 +2,18 @@
 
 .form-input-container {
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   box-sizing: border-box;
   outline: none;
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #5d5d5d;
+    font-family: sans-serif;
+  }
 }
 
 .icon {
