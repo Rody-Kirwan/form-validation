@@ -9,8 +9,12 @@ export default class Subscribe extends Component {
   constructor() {
     super();
     this.state = {
+      firstName: '',
+      lastName: '',
       email: '',
-      firstName: ''
+      dateOfBirth: '',
+      nationality: '',
+      occupation: ''
     };
   }
 
