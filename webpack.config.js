@@ -24,6 +24,10 @@ module.exports = (env, argv) => ({
           loader: "babel-loader"
         }
       },
+      { 
+        test: /\.(png|jpg|jpeg|gif|svg)(\?.*)?$/,
+        loader: "url-loader"
+      },
       {
         test: /\.scss$/,
         loader: [
@@ -72,6 +76,7 @@ module.exports = (env, argv) => ({
       styles: path.resolve(__dirname, 'src/styles/'),
       components: path.resolve(__dirname, 'src/components/'),
       js: path.resolve(__dirname, 'src/js/'),
+      img: path.resolve(__dirname, 'src/img/'),
       widgets: path.resolve(__dirname, 'src/widgets/')
     },
     extensions: ['.js', '.jsx', '.scss'],
