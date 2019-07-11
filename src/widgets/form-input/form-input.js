@@ -15,7 +15,11 @@ const FormInput = ({ validate, validationTypes, label, ...props}) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     
-    validate(value, validationTypes)
+    if (!validate) return props.onChange({
+      name, value, status 
+    });
+
+    return validate(value, validationTypes)
       .then((newState) => {
         setStatus(newState);
       })
