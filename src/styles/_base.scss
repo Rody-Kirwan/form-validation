@@ -1,7 +1,19 @@
 @import 'styles/_variables';
 
 body {
-  background-image: url('../img/OFC16_Cafe_018_1600.png');
+  background: url('../img/OFC16_Cafe_018_1600.png') no-repeat center center fixed;
+  background-size: cover;
   margin: 0;
   padding: 0;
+}
+
+h1 {
+  font-size: 65px;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-weight: bold;
+}
+
+p {
+  font-family: sans-serif;
 }
