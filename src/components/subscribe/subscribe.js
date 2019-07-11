@@ -55,7 +55,8 @@ export default class Subscribe extends Component {
               placeholder="01/01/1980"
               label="Date of Birth"
               onChange={this.handleChange}
-              // validate={ValidateDate}
+              validate={ValidateStr}
+              validationTypes={['required', 'date']}
               format={['dd/mm/yyyy']}
               value={this.state.dateOfBirth}
               name="dateOfBirth"
