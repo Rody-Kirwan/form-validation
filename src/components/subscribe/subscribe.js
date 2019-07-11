@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { FormInput, Form } from 'widgets';
+import { FormInput, Form, Button } from 'widgets';
 import { ValidateStr } from 'js/validation';
 
 import styles from './subscribe.scss';
@@ -43,9 +43,9 @@ export default class Subscribe extends Component {
             value={this.state.firstName}
             name="firstName"
           />
-          <button type="submit" disabled={this.state.isValid}>
+          <Button className="default" type="submit" disabled={this.state.isValid}>
             SUBMIT
-          </button>
+          </Button>
         </Form>
       </div>
     );
