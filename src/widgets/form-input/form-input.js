@@ -5,7 +5,7 @@ import { Input } from 'widgets';
 
 import styles from './form-input.scss';
 
-const FormInput = (props) => {
+const FormInput = ({ validate, validationTypes, ...props}) => {
   const [ state, setStatus ] = useState({
     status: 'valid',
     message: ''
@@ -14,11 +14,13 @@ const FormInput = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     
-    props.validate(value)
+    validate(value, validationTypes)
       .then((newState) => {
         setStatus(newState);
       })
-      .finally(() => props.onChange({ name, value, status }));
+      .finally(() => props.onChange({
+        name, value, status 
+      }));
   };
 
   return (
@@ -31,7 +33,8 @@ const FormInput = (props) => {
 
 FormInput.propTypes = {
   onChange: PropTypes.func.isRequired,
-  validate: PropTypes.func.isRequired
+  validate: PropTypes.func.isRequired,
+  validationTypes: PropTypes.array
 };
 
 export default FormInput;
