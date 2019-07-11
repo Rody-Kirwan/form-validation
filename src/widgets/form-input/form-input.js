@@ -6,7 +6,7 @@ import { Input } from 'widgets';
 import ValidIcon from 'img/check.png';
 import styles from './form-input.scss';
 
-const FormInput = ({ validate, validationTypes, label, ...props}) => {
+const FormInput = ({ validate, validationTypes, label, ...props }) => {
   const [ state, setStatus ] = useState({
     status: '',
     message: ''
@@ -46,7 +46,7 @@ const FormInput = ({ validate, validationTypes, label, ...props}) => {
 
 FormInput.propTypes = {
   onChange: PropTypes.func.isRequired,
-  validate: PropTypes.func.isRequired,
+  validate: PropTypes.func,
   validationTypes: PropTypes.array,
   label: PropTypes.string
 };
