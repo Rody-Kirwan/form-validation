@@ -9,7 +9,7 @@ export default class Subscribe extends Component {
   constructor() {
     super();
     this.state = {
-      firstName: ''
+      email: ''
     };
   }
 
@@ -24,8 +24,8 @@ export default class Subscribe extends Component {
         <FormInput
           onChange={this.handleChange}
           validate={emailFormat}
-          value={this.state.firstName}
-          name="firstName"
+          value={this.state.email}
+          name="email"
         />
       </div>
     );

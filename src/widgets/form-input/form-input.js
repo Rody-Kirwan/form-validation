@@ -6,17 +6,25 @@ import { Input } from 'widgets';
 import styles from './form-input.scss';
 
 const FormInput = (props) => {
-  const [ status, setStatus ] = useState('valid');
+  const [ state, setStatus ] = useState({
+    status: 'valid',
+    message: ''
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setStatus(props.validate(value) ? 'valid' : 'invalid');
-    props.onChange({ name, value });
+    
+    props.validate(value)
+      .then((newState) => {
+        setStatus(newState);
+      })
+      .finally(() => props.onChange({ name, value, status }));
   };
 
   return (
-    <div className={styles[status]}>
+    <div className={styles[state.status]}>
       <Input {...props} onChange={handleChange} />
+      <span>{state.message}</span>
     </div>
   );
 };
