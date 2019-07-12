@@ -14,7 +14,7 @@ However I will branch from this to create a quick redux implementation as an exa
 
 To run:
   - node => `npm start`
-  - bash => `./build.sh && ./run.sh
+  - bash => `./build.sh && ./run.sh`
 
 ## Main Technologies Used
 Browser Based
