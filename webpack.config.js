@@ -1,20 +1,51 @@
 const path = require('path')
-const autoprefixer = require('autoprefixer')
-const htmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const autoprefixer = require('autoprefixer');
+const htmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const deepExtend = require('deep-extend');
 
 require("@babel/register");
 
-module.exports = (env, argv) => ({
+let publicPath;
+
+const devOptions = (isDev) => {
+  if (!isDev) return undefined;
+
+  return {
+    devtool: 'source-map',
+    output: {
+      publicPath: '/',
+    },
+    devServer: {
+      historyApiFallback: true,
+      port: 3200
+    }
+  };
+};
+
+module.exports = (env, argv) => deepExtend({
   entry:  './src/index.js',
-  output: {
+  output: Object.assign({
     path: path.resolve(__dirname, './dist'),
     filename: 'bundle.js',
-    publicPath: '/'
+    chunkFilename: 'bundle.[chunkhash].js'
+  }, publicPath),
+
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          name: 'commons',
+          filename: "[name].js",
+          test: /\.js(x)?$/,
+          chunks: 'initial',
+          minChunks: 2
+        }
+      }
+    },
+    runtimeChunk : { name: 'shared' }
   },
-  devServer: {
-    historyApiFallback: true,
-  },
+  
   module: {
     rules: [
       {
@@ -68,7 +99,8 @@ module.exports = (env, argv) => ({
     }),
     new MiniCssExtractPlugin({
       filename: argv.mode === 'development' ? '[name].css' : '[name].[hash].css',
-      chunkFilename: argv.mode === 'development' ? '[id].css' : '[id].[hash].css'
+      chunkFilename: argv.mode === 'development' ? '[id].css' : '[id].[hash].css',
+      hmr: argv.mode === 'development'
     })
   ],
   resolve: {
@@ -80,6 +112,5 @@ module.exports = (env, argv) => ({
       widgets: path.resolve(__dirname, 'src/widgets/')
     },
     extensions: ['.js', '.jsx', '.scss'],
-  },
-  devtool: 'source-map'
-});
+  }
+}, devOptions(argv.mode === 'development'));
