@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 
 import { FormInput, FormRow, Form, Button } from 'widgets';
+import AppAlert from 'components/app-alert/app-alert';
 import { ValidateStr } from 'js/validation';
 
 import styles from './subscribe.scss';
 
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  dateOfBirth: '',
+  nationality: '',
+  occupation: '',
+  isSubscribed: false,
+};
+
 export default class Subscribe extends Component {
   constructor() {
     super();
-    this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      dateOfBirth: '',
-      nationality: '',
-      occupation: ''
-    };
+    this.state = initialState;
   }
 
   handleChange = ({ name, value }) => this.setState({
@@ -24,12 +28,25 @@ export default class Subscribe extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submit', this.state);
-    // Action to submit state o object
+    // Action to POST user
+    return Promise.resolve().then(() => {
+      this.setState({
+        initialState,
+        isSubscribed: true
+      });
+    });
   }
 
   render() {
-    return(
+    if (this.state.isSubscribed) {
+      return (
+        <div className={styles['subscribe-wrapper']}>
+          <AppAlert message="Thank You" className="default" />
+        </div>
+      );
+    }
+
+    return (
       <div className={styles['subscribe-wrapper']}>
         <Form className="subscription" onSubmit={this.handleSubmit} validate={'validateSubscription'}>
           <FormRow>
