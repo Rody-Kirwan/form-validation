@@ -18,7 +18,7 @@ const devOptions = (isDev) => {
     },
     devServer: {
       historyApiFallback: true,
-      port: 3200
+      port: 5000
     }
   };
 };
@@ -27,8 +27,8 @@ module.exports = (env, argv) => deepExtend({
   entry:  './src/index.js',
   output: Object.assign({
     path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js',
-    chunkFilename: 'bundle.[chunkhash].js'
+    filename: 'common.js',
+    chunkFilename: 'common.[chunkhash].js'
   }, publicPath),
 
   optimization: {
@@ -42,8 +42,7 @@ module.exports = (env, argv) => deepExtend({
           minChunks: 2
         }
       }
-    },
-    runtimeChunk : { name: 'shared' }
+    }
   },
   
   module: {
@@ -57,7 +56,10 @@ module.exports = (env, argv) => deepExtend({
       },
       { 
         test: /\.(png|jpg|jpeg|gif|svg)(\?.*)?$/,
-        loader: "url-loader"
+        loader: "url-loader",
+        options: {
+          limit: 8192
+        }
       },
       {
         test: /\.scss$/,
