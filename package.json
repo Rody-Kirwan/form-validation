@@ -45,7 +45,8 @@
     "build": "webpack --mode=production",
     "dev-server": "webpack-dev-server --mode=development --port 3200 --inline --hot",
     "lint": "eslint_d src  --ext js",
-    "serve": "serve -p 80 -s ./dist"
+    "serve": "serve -p 80 -s ./dist",
+    "start": "./build-image.sh && ./run.sh"
   },
   "repository": {
     "type": "git",
