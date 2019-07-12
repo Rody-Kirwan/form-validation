@@ -14,8 +14,8 @@ However I will branch from this to create a quick redux implementation as an exa
 There is also still significant work needed on styling / refactoring etc. 
 
 To run:
-  - node => `npm start`
-  - bash => `./build.sh && ./run.sh`
+  - Node > v10 => `npm start` (Probably works on > v8)
+  - Docker => `./build.sh && ./run.sh`
 
 ## Main Technologies Used
 ### Browser Based
@@ -28,6 +28,10 @@ https://www.npmjs.com/package/react-router-dom
 
 YupJS 
 https://www.npmjs.com/package/yup
+
+### CSS Compiler
+Sass
+https://sass-lang.com/
 
 ### Node
 Webpack
@@ -44,3 +48,7 @@ https://eslint.org/
 
 ServeJS
 https://github.com/zeit/serve#readme
+
+### Other 
+Docker
+https://www.docker.com/
