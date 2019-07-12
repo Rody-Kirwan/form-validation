@@ -11,6 +11,7 @@ In my opnion form state should largely be ephemeral and is much simpler managed 
   - And a final lightweight artifact
 
 However I will branch from this to create a quick redux implementation as an example.
+There is also still significant work needed on styling / refactoring etc. 
 
 To run:
   - node => `npm start`
