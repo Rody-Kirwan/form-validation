@@ -34,7 +34,9 @@ const FormInput = ({ validate, validationTypes, label, ...props }) => {
 
   return (
     <div className={`${styles[state.status]} ${styles['form-input-container']}`}>
-      { showLabel && <label>{label}</label> }
+      { 
+        showLabel && <label>{label}</label> 
+      }
       <Input {...props} onChange={handleChange} />
       <span className={styles.message}>{state.message}</span>
       {
