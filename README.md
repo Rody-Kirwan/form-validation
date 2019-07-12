@@ -18,7 +18,7 @@ To run:
   - bash => `./build.sh && ./run.sh`
 
 ## Main Technologies Used
-Browser Based
+### Browser Based
 
 React v16
 https://github.com/facebook/react/
@@ -29,8 +29,8 @@ https://www.npmjs.com/package/react-router-dom
 YupJS 
 https://www.npmjs.com/package/yup
 
-## Node
-Webback
+### Node
+Webpack
 https://github.com/webpack/webpack
 
 Webpack Dev Server
