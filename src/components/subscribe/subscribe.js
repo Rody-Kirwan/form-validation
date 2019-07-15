@@ -31,7 +31,7 @@ export default class Subscribe extends Component {
     // Action to POST user
     return Promise.resolve().then(() => {
       this.setState({
-        initialState,
+        ...initialState,
         isSubscribed: true
       });
     });
