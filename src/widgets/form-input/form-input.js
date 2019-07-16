@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import omit from 'lodash/omit';
 
 import { Input } from 'widgets';
 
 import ValidIcon from 'img/check.png';
 import styles from './form-input.scss';
 
-const FormInput = ({ validate, validationTypes, label, ...props }) => {
+const FormInput = ({
+  validation: { validate, validationTypes } = {},
+  label,
+  ...props
+}) => {
   const [ state, setStatus ] = useState({
     status: '',
     message: ''
@@ -19,7 +24,7 @@ const FormInput = ({ validate, validationTypes, label, ...props }) => {
       name, value, status 
     });
 
-    return validate(value, validationTypes)
+    return validate(Object.assign(props, { value }))
       .then((newState) => {
         setStatus(newState);
       })
@@ -27,6 +32,8 @@ const FormInput = ({ validate, validationTypes, label, ...props }) => {
         name, value, status 
       }));
   };
+
+  const inputProps = omit(props, validationTypes);
 
   // TODO: See why this renders 3 times (should be 2)
   const showIcon = state.status === 'valid';
@@ -37,7 +44,7 @@ const FormInput = ({ validate, validationTypes, label, ...props }) => {
       { 
         showLabel && <label>{label}</label> 
       }
-      <Input {...props} onChange={handleChange} />
+      <Input {...inputProps} onChange={handleChange} />
       <span className={styles.message}>{state.message}</span>
       {
         showIcon && <img src={ValidIcon} className={styles.icon} />
@@ -48,8 +55,7 @@ const FormInput = ({ validate, validationTypes, label, ...props }) => {
 
 FormInput.propTypes = {
   onChange: PropTypes.func.isRequired,
-  validate: PropTypes.func,
-  validationTypes: PropTypes.array,
+  validation: PropTypes.object,
   label: PropTypes.string
 };
 
