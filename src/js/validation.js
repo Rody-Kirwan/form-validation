@@ -1,4 +1,5 @@
 import { string as validateString } from 'yup';
+import pick from 'lodash/pick';
 
 const validateDate = () => ({
   isValid: (value) => new Promise(resolve => {
@@ -10,48 +11,68 @@ const validateDate = () => ({
   })
 });
 
-// TODO: DO BETTER
-// This is a bit acrobatic! - prob not verey scalable
-// Leaving for the moment cos it works.
-
 const validation = {
   required: {
-    validate: validateString().required(),
-    message: `Value is required`
+    validate: ({ value }) => validateString().required().isValid(value),
+    message: ({ label }) => `${label || 'Value'} is required`
   },
   minLength: {
-    validate: validateString().min(3),
-    message: `Value should be longer than 3 characters`
+    validate: ({ value, option }) => validateString().min(option).isValid(value),
+    message: ({ option, label }) => `${label || 'Value'} should be longer than ${option} characters`
   },
   maxLength: {
-    validate: validateString().max(6),
-    message: `Value should be no more than 6 characters`
+    validate: ({ value, option }) => validateString().max(option).isValid(value),
+    message: ({ option, label }) => `${label || 'Value'} should be no more than ${option} characters`
   },
   email: {
-    validate: validateString().email(),
-    message: `Email address is not valid`
+    validate: ({ value }) => validateString().email().isValid(value),
+    message: ({ label }) => `${label || 'Email'} is not valid`
   },
   date: {
-    validate: validateDate(),
-    message: 'Date entered is an invalid format'
+    validate: ({ value }) => validateDate().isValid(value),
+    message: ({ option, label }) => `${label || 'Date'} should be in format ${option}`
+  },
+  format: {
+    validate: ({ value, option }) => Promise.resolve(option.test(value)),
+    message: ({ option, label }) => `${label || 'Value'} should be match ${option}`
   }
 };
 
-const validate = (type, value, validateFn) => {
-  return validateFn.isValid(value)
+const validate = ({ type, value, option, label, validateFn }) => {
+  return validateFn({ value, option })
     .then((isValid) => (
-      isValid || Promise.reject(type)
+      isValid || Promise.reject({
+        status: 'invalid',
+        message: validation[type].message({
+          option,
+          label
+        })
+      })
     ));
 };
 
-export const ValidateStr = (value, options=[]) => Promise.all(
-  options.map(type => validate(type, value, validation[type].validate))
-)
-.then(() => ({
-  status: 'valid',
-  message: ''
-}))
-.catch((type) => ({
-  status: 'invalid',
-  message: validation[type].message
-}));
+export const validateStr = ({ value, label, ...rest }) => {
+  const validationProps = pick(rest, Object.keys(validation));
+  
+  return Promise.all(
+    Object.keys(validationProps)
+      .map(type => validate({
+        type,
+        value, 
+        label, 
+        option: validationProps[type],
+        validateFn: validation[type].validate
+      }))
+  )
+  .then(() => ({
+    status: 'valid',
+    message: ''
+  }))
+  .catch(res => res);
+};
+
+export default {
+  validationTypes: Object.keys(validation),
+  validate: validateStr
+};
+

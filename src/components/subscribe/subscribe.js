@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { FormInput, FormRow, Form, Button } from 'widgets';
 import AppAlert from 'components/app-alert/app-alert';
-import { ValidateStr } from 'js/validation';
+import ValidateStr from 'js/validation';
 
 import styles from './subscribe.scss';
 
@@ -51,50 +51,54 @@ export default class Subscribe extends Component {
         <Form className="subscription" onSubmit={this.handleSubmit} validate={'validateSubscription'}>
           <FormRow>
             <FormInput
+              required
+              maxLength={10}
               label="First Name"
               onChange={this.handleChange}
-              validate={ValidateStr}
-              validationTypes={['required', 'maxLength']}
+              validation={ValidateStr}
               value={this.state.firstName}
               name="firstName"
             />
             <FormInput
+              required
+              maxLength={10}
               label="Last Name"
               onChange={this.handleChange}
-              validate={ValidateStr}
-              validationTypes={['required', 'maxLength']}
+              validation={ValidateStr}
               value={this.state.lastName}
               name="lastName"
             />
           </FormRow>
           <FormRow>
             <FormInput
+              required
+              date="dd/mm/yyyy"
               placeholder="01/01/1980"
               label="Date of Birth"
               onChange={this.handleChange}
-              validate={ValidateStr}
-              validationTypes={['required', 'date']}
-              format={['dd/mm/yyyy']}
+              validation={ValidateStr}
               value={this.state.dateOfBirth}
               name="dateOfBirth"
             />
             <FormInput
+              required
+              maxLength={5}
               placeholder="Irish"
               label="Nationality"
               onChange={this.handleChange}
-              validate={ValidateStr}
-              validationTypes={['required', 'maxLength', 'minLength']}
+              validation={ValidateStr}
               value={this.state.nationality}
               name="nationality"
             />
           </FormRow>
           <FormRow>
             <FormInput
+              required
+              email
               placeholder="hello@info.com"
               label="Email"
               onChange={this.handleChange}
-              validate={ValidateStr}
-              validationTypes={['required', 'email']}
+              validation={ValidateStr}
               value={this.state.email}
               name="email"
               type="email"
