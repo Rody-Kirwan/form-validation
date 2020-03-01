@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 
 import { FormInput, FormRow, Form, Button } from 'widgets';
 import AppAlert from 'components/app-alert/app-alert';
-import ValidateStr from 'js/validation';
+import setValidation from 'js/validation';
+import customValidation from 'js/my-validation';
 
 import styles from './subscribe.scss';
+
+const ValidateStr = setValidation(customValidation);
 
 const initialState = {
   firstName: '',
@@ -48,9 +51,13 @@ export default class Subscribe extends Component {
 
     return (
       <div className={styles['subscribe-wrapper']}>
-        <Form className="subscription" onSubmit={this.handleSubmit} validate={'validateSubscription'}>
+        <Form 
+          className="subscription" 
+          onSubmit={this.handleSubmit}
+        >
           <FormRow>
             <FormInput
+              id="firstname"
               required
               maxLength={10}
               label="First Name"
@@ -60,6 +67,7 @@ export default class Subscribe extends Component {
               name="firstName"
             />
             <FormInput
+              id="lastname"
               required
               maxLength={10}
               label="Last Name"
@@ -71,6 +79,7 @@ export default class Subscribe extends Component {
           </FormRow>
           <FormRow>
             <FormInput
+              id="dob"
               required
               date="dd/mm/yyyy"
               placeholder="01/01/1980"
@@ -81,6 +90,7 @@ export default class Subscribe extends Component {
               name="dateOfBirth"
             />
             <FormInput
+              id="nationality"
               required
               maxLength={5}
               placeholder="Irish"
@@ -93,6 +103,7 @@ export default class Subscribe extends Component {
           </FormRow>
           <FormRow>
             <FormInput
+              id="email"
               required
               email
               placeholder="hello@info.com"
@@ -104,6 +115,7 @@ export default class Subscribe extends Component {
               type="email"
             />
             <FormInput
+              id="occupation"
               placeholder="Frontend Developer"
               label="Occupation"
               onChange={this.handleChange}
@@ -111,7 +123,11 @@ export default class Subscribe extends Component {
               name="occupation"
             />
           </FormRow>
-          <Button className="default" type="submit" disabled={this.state.isValid}>
+          <Button 
+            className="default" 
+            type="submit" 
+            disabled={this.state.isValid}
+          >
             SUBMIT
           </Button>
         </Form>

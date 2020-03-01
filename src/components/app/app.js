@@ -9,7 +9,7 @@ const App = () => (
   <div className={styles['app-container']}>
     <Header />
     <h1>Appy Days!</h1>
-    <Redirect to='/welcome' />
+    <Redirect to='/subscribe' />
   </div>
 );
 
