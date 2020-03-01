@@ -1,31 +1,14 @@
-import { string as validateString } from 'yup';
 import pick from 'lodash/pick';
 import deepExtend from 'deep-extend';
+import defaultValidation from './default-validation';
 
-export default function (options) {
+const setValid = () => ({
+  status: 'valid',
+  message: ''
+});
 
-  const validation = deepExtend({
-    required: {
-      validate: ({ value }) => validateString().required().isValid(value),
-      message: ({ label }) => `${label || 'Value'} is required`
-    },
-    minLength: {
-      validate: ({ value, option }) => validateString().min(option).isValid(value),
-      message: ({ option, label }) => `${label || 'Value'} should be longer than ${option} characters`
-    },
-    maxLength: {
-      validate: ({ value, option }) => validateString().max(option).isValid(value),
-      message: ({ option, label }) => `${label || 'Value'} should be no more than ${option} characters`
-    },
-    email: {
-      validate: ({ value }) => validateString().email().isValid(value),
-      message: ({ label }) => `${label || 'Email'} is not valid`
-    },
-    format: {
-      validate: ({ value, option }) => Promise.resolve(option.test(value)),
-      message: ({ option, label }) => `${label || 'Value'} should be match ${option}`
-    }
-  }, options);
+export default function (customValidation) {
+  const validation = deepExtend(defaultValidation, customValidation);
   
   const validate = ({ validateFn, ...props }) => {
     return validateFn(props)
@@ -37,21 +20,18 @@ export default function (options) {
       ));
   };
   
-  const setValid = () => ({
-    status: 'valid',
-    message: ''
-  });
-  
   const validateStr = (props) => {
     const validationProps = pick(props, Object.keys(validation));
+
+    const executeValidation = (type) => validate({
+      type,
+      option: validationProps[type],
+      validateFn: validation[type].validate,
+      ...props
+    });
     
     return Promise.all(
-      Object.keys(validationProps).map(type => validate({
-        type,
-        option: validationProps[type],
-        validateFn: validation[type].validate,
-        ...props
-      }))
+      Object.keys(validationProps).map(executeValidation)
     )
     .then(setValid)
     .catch(invalid => invalid);
@@ -61,6 +41,6 @@ export default function (options) {
     validationTypes: Object.keys(validation),
     validation: validation,
     validate: validateStr
-  }
+  };
 }
 
