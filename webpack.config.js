@@ -111,7 +111,8 @@ module.exports = (env, argv) => deepExtend({
       components: path.resolve(__dirname, 'src/components/'),
       js: path.resolve(__dirname, 'src/js/'),
       img: path.resolve(__dirname, 'src/img/'),
-      widgets: path.resolve(__dirname, 'src/widgets/')
+      widgets: path.resolve(__dirname, 'src/widgets/'),
+      validation: path.resolve(__dirname, 'src/validation')
     },
     extensions: ['.js', '.jsx', '.scss'],
   }

@@ -15,12 +15,6 @@ class FormInput extends Component {
 
   setStatus = (status) => this.setState(status)
 
-  // validate = async (value) => {
-  //   const { validation: { validate }} = this.props;
-  //   const inputStatus = await validate({ ...this.props, value });
-  //   this.setStatus(inputStatus)
-  // }
-
   handleChange = (e) => {
     const { name, value } = e.target;
     const shouldValidate = !!this.props.validation;

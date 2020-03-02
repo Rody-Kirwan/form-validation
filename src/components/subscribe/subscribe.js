@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { FormInput, FormRow, Form, Button } from 'widgets';
 import AppAlert from 'components/app-alert/app-alert';
-import setValidation from 'js/validation';
+import setValidation from 'validation/validate';
 import customValidation from 'js/my-validation';
 
 import styles from './subscribe.scss';
