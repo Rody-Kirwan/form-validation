@@ -9,38 +9,35 @@ const setValid = () => ({
 
 export default function (customValidation) {
   const validation = deepExtend(defaultValidation, customValidation);
+  const pickValidationProps = (props) => pick(props, Object.keys(validation));
   
-  const validate = ({ validateFn, ...props }) => {
-    return validateFn(props)
-      .then((isValid) => (
-        isValid || Promise.reject({
-          status: 'invalid',
-          message: validation[props.type].message(props)
-        })
-      ));
-  };
-  
-  const validateStr = (props) => {
-    const validationProps = pick(props, Object.keys(validation));
-
-    const executeValidation = (type) => validate({
-      type,
-      option: validationProps[type],
-      validateFn: validation[type].validate,
-      ...props
-    });
+  const executeValidation = async ({ validator, ...props }) => {
+    const isValid = await validator(props);
     
-    return Promise.all(
-      Object.keys(validationProps).map(executeValidation)
-    )
+    return isValid || Promise.reject({
+      status: 'invalid',
+      message: validation[props.type].message(props)
+    });
+  };
+
+  const validateProp = (props) => (type) => executeValidation({
+    validator: validation[type].validate,
+    option: props[type],
+    type,
+    ...props
+  });
+
+  const validatorsArray = (props) => Object.keys(pickValidationProps(props))
+    .map(validateProp(props));
+  
+  const validateGroup = (props) => Promise.all(validatorsArray(props))
     .then(setValid)
     .catch(invalid => invalid);
-  };
 
   return {
     validationTypes: Object.keys(validation),
     validation: validation,
-    validate: validateStr
+    validate: validateGroup
   };
 }
 
