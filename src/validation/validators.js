@@ -1,6 +1,6 @@
 import { string as validateString } from 'yup';
 
-const defaultValidation = {
+const defaultValidation = () => ({
   required: {
     validate: ({ value }) => validateString().required().isValid(value),
     message: ({ label }) => `${label || 'Value'} is required`
@@ -21,6 +21,6 @@ const defaultValidation = {
     validate: ({ value, option }) => Promise.resolve(option.test(value)),
     message: ({ option, label }) => `${label || 'Value'} should be match ${option}`
   }
-};
+});
 
 export default defaultValidation;

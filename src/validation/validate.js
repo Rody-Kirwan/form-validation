@@ -23,7 +23,13 @@ function validateProp(opts, config, executeFn) {
 }
 
 async function executeValidation(props, messageFn, validatorFn) {
-  const isValid = await validatorFn(props);
+  let isValid;
+
+  try {
+    isValid = await validatorFn(props);
+  } catch (err) {
+    throw new Error(err);
+  }
 
   return isValid || Promise.reject({
     status: 'invalid',
@@ -32,7 +38,7 @@ async function executeValidation(props, messageFn, validatorFn) {
 }
 
 export default function validate(customValidators = {}) {
-  const validators = deepExtend(defaultValidators, customValidators);
+  const validators = deepExtend(defaultValidators(), customValidators);
   const validatorKeys = Object.keys(validators);
   
   const validateGroup = (props) => Promise.all(
