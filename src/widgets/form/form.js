@@ -42,7 +42,7 @@ class Form extends Component {
         return this[node.props.id].state.status === 'valid';
       }) ? 'valid' : 'invalid';
       
-      this.setState({ status })
+      this.setState({ status });
       
       if (this.props.onValidate) {
         this.props.onValidate(status);

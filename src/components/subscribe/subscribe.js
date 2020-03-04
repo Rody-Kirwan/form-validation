@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { FormInput, FormRow, Form, Button } from 'widgets';
 import AppAlert from 'components/app-alert/app-alert';
 import setValidation from 'validation/validate';
-import customValidation from 'js/my-validation';
+import customValidation from 'js/custom-validation';
 
 import styles from './subscribe.scss';
 
@@ -17,6 +17,7 @@ const initialState = {
   nationality: '',
   occupation: '',
   isSubscribed: false,
+  isFormValid: false
 };
 
 export default class Subscribe extends Component {
@@ -29,9 +30,12 @@ export default class Subscribe extends Component {
     [name]: value
   })
 
+  setFormStatus = (status) => this.setState({ 
+    isFormValid: status === 'valid'
+  })
+
   handleSubmit = (e) => {
     e.preventDefault();
-    // Action to POST user
     return Promise.resolve().then(() => {
       this.setState({
         ...initialState,
@@ -54,6 +58,7 @@ export default class Subscribe extends Component {
         <Form 
           className="subscription" 
           onSubmit={this.handleSubmit}
+          onChange={this.setFormStatus}
         >
           <FormRow>
             <FormInput
@@ -106,6 +111,8 @@ export default class Subscribe extends Component {
               id="email"
               required
               email
+              maxLength={10}
+              minLength={8}
               placeholder="hello@info.com"
               label="Email"
               onChange={this.handleChange}
@@ -126,7 +133,7 @@ export default class Subscribe extends Component {
           <Button 
             className="default" 
             type="submit" 
-            disabled={this.state.isValid}
+            disabled={this.state.isFormValid}
           >
             SUBMIT
           </Button>
