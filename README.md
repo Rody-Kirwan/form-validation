@@ -1,32 +1,71 @@
-# Sample Application
+# Form Validation Strategy Using React and Custom Validation Module
 
 This is a sample application to display form management / validation solution using React component-state managment.
+Form validation is a pain point in a lot of applications. This solution attempts to provide a simple and uniform
+pattern for form validation logic in a react application, while still allowing maximum flexiblity to the developer through customization.
 
-I decided to make any Redux implementation a low priority. i.e (Implement in redux if I have time). 
-In my opnion form state should largely be ephemeral, and much simpler managed in component-state. For this project I tried to focus on building:
+The functionality is purposefully split into 3 distinct parts:
+ - A validation module which is framework agnostic (this would ideally be a separate NPM package)
+ - A REACT based form component wich utilises the validation module (which again could be a separate dependency)
+ - A surrounding react application which is bundled with webpack and final artifact built using docker
 
-  - Solid scalable application foundation / file structure
-  - A validation solution (that definitely requires some work)
-  - A clear GIT commit history to make process as transparent as possible
-  - And a final lightweight artifact
-
-I _will_ branch from this to create a quick redux implementation as an example.
-There is also still significant work needed on styling / refactoring / unit testing etc. 
-
-I NEED MORE TIME!!!
-
-To run:
+To run in production mode:
   - Node > v10 => `npm start` (Probably works on > v8)
   - Docker => `./build.sh && ./run.sh`
+  
+To run in dev mode:
+ - `npm run dev`
+ 
+## Custom Validation Module
+### validators
+```
+[name]: {
+  validate: ([props]) => [function Promise]
+  message: ([props]) => [function Function]
+}
+```
+### Example
+```
+allCaps: {
+  validate: ({ value }) => Promise.resolve(value.split().every(v => v === v.toUpperCase())
+  message: ({ option }) => `Value must be in uppercase`
+}
+```
+
+### Default Validators
+```
+{
+  required: {
+    validate: ({ value }) => validateString().required().isValid(value),
+    message: ({ label }) => `${label || 'Value'} is required`
+  },
+  minLength: {
+    validate: ({ value, option }) => validateString().min(option).isValid(value),
+    message: ({ option, label }) => `${label || 'Value'} should be longer than ${option} characters`
+  },
+  maxLength: {
+    validate: ({ value, option }) => validateString().max(option).isValid(value),
+    message: ({ option, label }) => `${label || 'Value'} should be no more than ${option} characters`
+  },
+  email: {
+    validate: ({ value }) => validateString().email().isValid(value),
+    message: ({ label }) => `${label || 'Email'} is not valid`
+  },
+  format: {
+    validate: ({ value, option }) => Promise.resolve(option.test(value)),
+    message: ({ option, label }) => `${label || 'Value'} should be match ${option}`
+  }
+}
+```
+## initialize (default function)
+
+### `initialize(customValidators)`
+
 
 ## Main Technologies Used
-### Browser Based
 
 React v16
 https://github.com/facebook/react/
-
-React Router DOM
-https://www.npmjs.com/package/react-router-dom
 
 YupJS 
 https://www.npmjs.com/package/yup
@@ -50,6 +89,9 @@ https://eslint.org/
 
 ServeJS
 https://github.com/zeit/serve#readme
+
+Jest
+https://jestjs.io/
 
 ### Other 
 Docker
