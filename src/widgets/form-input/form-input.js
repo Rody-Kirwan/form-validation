@@ -35,8 +35,11 @@ class FormInput extends Component {
 
   render() {
     const { validation = {}, label, ...props } = this.props;
-    const { validationTypes } = validation;
-    const inputProps = sanitiseProps(props, validationTypes);
+    const { validationTypes = [] } = validation;
+    const inputProps = sanitiseProps(props, [
+      ...validationTypes,
+      'validateGroup'
+    ]);
     const showIcon = this.state.status === 'valid';
     const showLabel = !!label;
 
