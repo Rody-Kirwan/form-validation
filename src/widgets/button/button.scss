@@ -15,4 +15,9 @@
   color: #fff;
   background: $application-green;
   border: 1px solid darken($application-green, 10%);
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }

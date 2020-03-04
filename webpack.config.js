@@ -1,7 +1,9 @@
 const path = require('path')
 const autoprefixer = require('autoprefixer');
 const htmlWebpackPlugin = require('html-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const deepExtend = require('deep-extend');
 
 require("@babel/register");
@@ -27,11 +29,12 @@ module.exports = (env, argv) => deepExtend({
   entry:  './src/index.js',
   output: Object.assign({
     path: path.resolve(__dirname, './dist'),
-    filename: 'common.js',
+    filename: 'main.js',
     chunkFilename: 'common.[chunkhash].js'
   }, publicPath),
 
   optimization: {
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
     splitChunks: {
       cacheGroups: {
         commons: {
@@ -111,7 +114,8 @@ module.exports = (env, argv) => deepExtend({
       components: path.resolve(__dirname, 'src/components/'),
       js: path.resolve(__dirname, 'src/js/'),
       img: path.resolve(__dirname, 'src/img/'),
-      widgets: path.resolve(__dirname, 'src/widgets/')
+      widgets: path.resolve(__dirname, 'src/widgets/'),
+      validation: path.resolve(__dirname, 'src/validation')
     },
     extensions: ['.js', '.jsx', '.scss'],
   }
