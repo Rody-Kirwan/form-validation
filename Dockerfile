@@ -6,7 +6,7 @@ COPY ./package.json /build/package.json
 
 RUN npm ci
 
-FROM mhart/alpine-node as spa 
+FROM mhart/alpine-node:10 as spa 
 
 WORKDIR /build
 COPY --from=deps /build/node_modules /build/node_modules
