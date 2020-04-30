@@ -62,7 +62,6 @@ export default class Subscribe extends Component {
         >
           <FormRow>
             <FormInput
-              id="firstname"
               required
               maxLength={10}
               label="First Name"
