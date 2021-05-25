@@ -5,7 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "browserslist": "^4.6.4",
+    "browserslist": "^4.16.5",
     "deep-extend": "^0.6.0",
     "html-webpack-plugin": "^3.2.0",
     "jest": "^25.1.0",
